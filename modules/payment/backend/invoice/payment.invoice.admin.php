@@ -24,8 +24,8 @@ class Payment_invoice_admin
                     'help'	=>	'Можно взять из ЛК Invoice'
                 ),
                 'invoice_login' => array(
-                    'name'	=>	'Login',
-                    'help'	=>	'Логин от ЛК Invoice'
+                    'name'	=>	'Merchant ID',
+                    'help'	=>	'Можно взять из ЛК Invoice'
                 ),
                 'invoice_default_terminal_name' => array(
                     'name' => 'Имя терминала',

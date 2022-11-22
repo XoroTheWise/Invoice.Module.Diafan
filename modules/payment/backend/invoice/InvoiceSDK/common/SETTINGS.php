@@ -1,7 +1,7 @@
 <?php
 
 
-class SETTINGS
+class INVOICE_SETTINGS
 {
     /**
      * @var string
@@ -21,14 +21,5 @@ class SETTINGS
      * @var string
      */
     public $fail_url;
-
-    /**
-     * SETTINGS constructor.
-     * @param $terminal_id string
-     */
-    public function __construct($terminal_id)
-    {
-        $this->terminal_id = $terminal_id;
-    }
 
 }
