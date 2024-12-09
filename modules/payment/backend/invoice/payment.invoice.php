@@ -11,8 +11,10 @@ class Callback {
     public function handle() {
         $notification = $this->getNotification();
 
+        $this->log("INFO: Collback notification - ". json_encode($notification) . "\n");
+
         $type = $notification["notification_type"];
-        $id = $notification["order"]["id"];
+        $id = strstr($notification["order"]["id"], ":", true);
 
         $signature = $notification["signature"];
 
@@ -25,10 +27,12 @@ class Callback {
         if($type == "pay") {
 
             if($notification["status"] == "successful") {
+                $this->log("INFO: Collback status - pay". "" . "\n");
                 $this->pay($pay);
                 return "payment successful";
             }
             if($notification["status"] == "error") {
+                $this->log("ERROR: Collback status - pay". "" . "\n");
                 return "payment failed";
             }
         }
@@ -40,6 +44,13 @@ class Callback {
         $this->self->diafan->_payment->success($pay, 'pay');
         return true;
     }
+
+    public function log($log) {
+        $timestamp = date('Y-m-d H:i:s');
+		$fp = fopen('invoice_payment.log', 'a+');
+        fwrite($fp, "[{$timestamp}] {$log}\n");
+		fclose($fp);
+	}
 
     private function getOrder($id) {
         $pay = DB::query_fetch_array("SELECT * FROM {payment_history} WHERE id=%d LIMIT 1", $id);
